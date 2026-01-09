@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profolia - AI-Powered Creative Portfolio Generator | Professional Portfolio Website Builder</title>
+    <title>profilia - AI-Powered Creative Portfolio Generator | Professional Portfolio Website Builder</title>
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="Create stunning professional portfolios for photographers, musicians, developers, and creative professionals. AI-powered portfolio generator with beautiful templates, responsive design, and advanced features.">
@@ -12,22 +12,22 @@
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
     <meta name="revisit-after" content="7 days">
-    <link rel="canonical" href="https://profolia.art/">
+    <link rel="canonical" href="https://profilia.solutionsynth.cloud/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://profolia.art/">
-    <meta property="og:title" content="Profolia - AI-Powered Creative Portfolio Generator">
+    <meta property="og:url" content="https://profilia.solutionsynth.cloud/">
+    <meta property="og:title" content="profilia - AI-Powered Creative Portfolio Generator">
     <meta property="og:description" content="Create stunning professional portfolios with AI technology. Beautiful templates for photographers, musicians, developers, and creative professionals.">
-    <meta property="og:image" content="https://profolia.art/og-image.jpg">
-    <meta property="og:site_name" content="Profolia">
+    <meta property="og:image" content="https://profilia.solutionsynth.cloud/og-image.jpg">
+    <meta property="og:site_name" content="profilia">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://profolia.art/">
-    <meta name="twitter:title" content="Profolia - AI-Powered Creative Portfolio Generator">
+    <meta name="twitter:url" content="https://profilia.solutionsynth.cloud/">
+    <meta name="twitter:title" content="profilia - AI-Powered Creative Portfolio Generator">
     <meta name="twitter:description" content="Create stunning professional portfolios with AI technology. Beautiful templates for photographers, musicians, developers, and creative professionals.">
-    <meta name="twitter:image" content="https://profolia.art/og-image.jpg">
+    <meta name="twitter:image" content="https://profilia.solutionsynth.cloud/og-image.jpg">
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
     <style>
@@ -947,7 +947,7 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <a href="#" class="logo">🎨 profolia</a>
+        <a href="#" class="logo">🎨 profilia</a>
         <div>
             <a href="#featured">Featured</a>
             <a href="#ai">AI Capabilities</a>
@@ -1016,7 +1016,7 @@
                     style="width: 100%; padding: 0.8rem; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 8px; color: var(--light); font-size: 1rem;"
                 />
                 <p class="upload-file-types" style="margin-top: 0.3rem; text-align: left; font-size: 0.85rem;">
-                    Your URL will be: <span id="urlPreview" style="color: var(--primary);">profolia.solutionsynth.cloud/portfolio/yourname</span>
+                    Your URL will be: <span id="urlPreview" style="color: var(--primary);">profilia.solutionsynth.cloud/portfolio/yourname</span>
                 </p>
             </div>
             
@@ -1178,7 +1178,7 @@
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 ASHOK S All rights reserved. Built with passion and innovation.</p>
-        <p>Profolia - Your Creative Portfolio Platform</p>
+        <p>profilia - Your Creative Portfolio Platform</p>
     </footer>
 
     <script>
@@ -1233,7 +1233,7 @@
                     
                     if (response.ok) {
                         const text = await response.text();
-                        const isMainSite = text.includes('profolia</a>') || text.includes('Upload Your Resume');
+                        const isMainSite = text.includes('profilia</a>') || text.includes('Upload Your Resume');
                         
                         if (isMainSite) {
                             // Portfolio doesn't exist
@@ -1326,12 +1326,12 @@
                     
                     // If it's the main site's index.html (CloudFront error redirect), username is available
                     // Real portfolios won't have "profilia" logo or upload section
-                    const isMainSite = text.includes('profolia</a>') || text.includes('Upload Your Resume');
+                    const isMainSite = text.includes('profilia</a>') || text.includes('Upload Your Resume');
                     
                     if (isMainSite) {
                         // Username available (CloudFront returned main index.html as error page)
                         preview.style.color = 'var(--primary)';
-                        preview.textContent = `✅ profolia.solutionsynth.cloud/portfolio/${username}`;
+                        preview.textContent = `✅ profilia.solutionsynth.cloud/portfolio/${username}`;
                         usernameInput.style.borderColor = '#10b981';
                         usernameInput.dataset.available = 'true';
                         enableUpload();
@@ -1370,7 +1370,7 @@
             disableUpload();
             
             if (username) {
-                preview.textContent = `profolia.solutionsynth.cloud/portfolio/${username}`;
+                preview.textContent = `profilia.solutionsynth.cloud/portfolio/${username}`;
                 
                 // Debounce the availability check
                 clearTimeout(usernameCheckTimeout);
@@ -1378,7 +1378,7 @@
                     checkUsernameAvailability(username);
                 }, 800);
             } else {
-                preview.textContent = 'profolia.solutionsynth.cloud/portfolio/yourname';
+                preview.textContent = 'profilia.solutionsynth.cloud/portfolio/yourname';
                 this.dataset.available = 'true';
             }
         });
@@ -1402,7 +1402,7 @@
             const message = formData.get('message');
 
             // Create mailto link
-            const subject = `Profolia Service Inquiry - ${service}`;
+            const subject = `profilia Service Inquiry - ${service}`;
             const body = `Name: ${name}%0AEmail: ${email}%0AService: ${service}%0A%0AMessage:%0A${message}`;
             
             window.location.href = `mailto:ashok9315@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
@@ -1659,9 +1659,9 @@
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Profolia",
-        "url": "https://profolia.art",
-        "logo": "https://profolia.art/logo.png",
+        "name": "profilia",
+        "url": "https://profilia.solutionsynth.cloud",
+        "logo": "https://profilia.solutionsynth.cloud/logo.png",
         "description": "AI-powered creative portfolio generator for photographers, musicians, developers, and creative professionals",
         "founder": {
             "@type": "Person",
@@ -1684,12 +1684,12 @@
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Profolia",
-        "url": "https://profolia.art",
+        "name": "profilia",
+        "url": "https://profilia.solutionsynth.cloud",
         "description": "Create stunning professional portfolios with AI technology",
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://profolia.art/{search_term_string}",
+            "target": "https://profilia.solutionsynth.cloud/{search_term_string}",
             "query-input": "required name=search_term_string"
         }
     }
@@ -1702,7 +1702,7 @@
         "serviceType": "Portfolio Generation",
         "provider": {
             "@type": "Organization",
-            "name": "Profolia"
+            "name": "profilia"
         },
         "areaServed": "Worldwide",
         "description": "AI-powered portfolio generation service with Generative AI, RAG, and MCP technologies"
