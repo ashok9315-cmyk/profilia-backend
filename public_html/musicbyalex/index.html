@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>musicbyalex - Professional Music Producer Portfolio | Electronic & Hip-Hop Beats</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Professional music producer Alex specializing in Electronic and Hip-Hop beats. Listen to original tracks and explore music production services.">
+    <meta name="keywords" content="music producer, Alex music, electronic music, hip-hop beats, music production, sound design, music portfolio">
+    <meta name="author" content="Alex">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://profolia.art/musicbyalex/">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://profolia.art/musicbyalex/">
+    <meta property="og:title" content="musicbyalex - Professional Music Producer Portfolio">
+    <meta property="og:description" content="Professional music producer specializing in Electronic and Hip-Hop beats. Original tracks and production services.">
+    <meta property="og:image" content="https://profolia.art/musicbyalex/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="musicbyalex - Professional Music Producer Portfolio">
+    <meta name="twitter:description" content="Professional music producer specializing in Electronic and Hip-Hop beats. Original tracks and production services.">
+    <meta name="twitter:image" content="https://profolia.art/musicbyalex/og-image.jpg">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>�</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #7c3aed;
+            --dark: #0a0e27;
+            --darker: #050811;
+            --light: #e2e8f0;
+            --accent: #f59e0b;
+            --text: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
+        }
+
+        /* Navigation */
+        nav {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Profile Header */
+        .profile-header {
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.3);
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-title {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .profile-bio {
+            max-width: 600px;
+            margin: 1rem auto 2rem;
+            line-height: 1.6;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .profile-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            color: var(--darker);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        /* Tracks Section */
+        .tracks {
+            padding: 4rem 5%;
+        }
+
+        .tracks h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--light);
+        }
+
+        .track-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .track-item {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .track-item:hover {
+            border-color: var(--accent);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.1);
+        }
+
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .track-info h3 {
+            color: var(--light);
+            margin-bottom: 0.3rem;
+        }
+
+        .track-info p {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        /* Collaborations Section */
+        .collaborations {
+            padding: 4rem 5%;
+            background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.05));
+        }
+
+        .collaborations h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--light);
+        }
+
+        .collab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .collab-card {
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .collab-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.1);
+        }
+
+        .collab-avatar {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .collab-card h3 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .collab-card p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--light);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--primary);
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 25px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-home:hover {
+            background: rgba(245, 158, 11, 0.2);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: rgba(5, 8, 17, 0.9);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .profile-name {
+                font-size: 1.8rem;
+            }
+
+            .profile-stats {
+                gap: 1.5rem;
+            }
+
+            .profile-actions {
+                flex-direction: column;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="../" class="logo">🎨 profolia</a>
+        <div>
+            <a href="#tracks">Tracks</a>
+            <a href="#collaborations">Collaborations</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Profile Header -->
+    <section class="profile-header">
+        <div class="profile-avatar">🎵</div>
+        <h1 class="profile-name">musicbyalex</h1>
+        <p class="profile-title">Electronic Music Producer & DJ</p>
+        <p class="profile-bio">
+            Creating electronic beats that move souls. Specializing in house, techno, and hip-hop production. 
+            From bedroom studio to international festivals, bringing the future of music today.
+        </p>
+        
+        <div class="profile-stats">
+            <div class="stat">
+                <div class="stat-number">1.8K</div>
+                <div class="stat-label">Followers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">45</div>
+                <div class="stat-label">Tracks</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">10M+</div>
+                <div class="stat-label">Streams</div>
+            </div>
+        </div>
+
+        <div class="profile-actions">
+            <button class="btn btn-primary">Follow</button>
+            <button class="btn btn-secondary">Collaborate</button>
+        </div>
+    </section>
+
+    <!-- Tracks Section -->
+    <section class="tracks" id="tracks">
+        <h2>Latest Tracks</h2>
+        <div class="track-list">
+            <div class="track-item">
+                <div class="play-btn">▶</div>
+                <div class="track-info">
+                    <h3>Neon Dreams</h3>
+                    <p>House • 3:24 • 2.4M plays</p>
+                </div>
+            </div>
+
+            <div class="track-item">
+                <div class="play-btn">▶</div>
+                <div class="track-info">
+                    <h3>Digital Pulse</h3>
+                    <p>Techno • 4:15 • 1.8M plays</p>
+                </div>
+            </div>
+
+            <div class="track-item">
+                <div class="play-btn">▶</div>
+                <div class="track-info">
+                    <h3>Cosmic Journey</h3>
+                    <p>Electronic • 5:42 • 890K plays</p>
+                </div>
+            </div>
+
+            <div class="track-item">
+                <div class="play-btn">▶</div>
+                <div class="track-info">
+                    <h3>Underground Vibes</h3>
+                    <p>Hip-Hop Beats • 3:50 • 650K plays</p>
+                </div>
+            </div>
+
+            <div class="track-item">
+                <div class="play-btn">▶</div>
+                <div class="track-info">
+                    <h3>Midnight Sessions</h3>
+                    <p>Deep House • 6:10 • 1.2M plays</p>
+                </div>
+            </div>
+
+            <div class="track-item">
+                <div class="play-btn">▶</div>
+                <div class="track-info">
+                    <h3>Future Beats</h3>
+                    <p>Experimental • 4:35 • 420K plays</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaborations Section -->
+    <section class="collaborations" id="collaborations">
+        <h2>Collaborations & Features</h2>
+        <div class="collab-grid">
+            <div class="collab-card">
+                <div class="collab-avatar">👤</div>
+                <h3>Artist Collab 1</h3>
+                <p>Featured on "Synth Wave Sounds" EP</p>
+                <p style="font-size: 0.85rem; color: var(--primary);">With Producer X</p>
+            </div>
+
+            <div class="collab-card">
+                <div class="collab-avatar">🎤</div>
+                <h3>Vocal Feature</h3>
+                <p>Track: "Electric Hearts"</p>
+                <p style="font-size: 0.85rem; color: var(--primary);">With Singer Y</p>
+            </div>
+
+            <div class="collab-card">
+                <div class="collab-avatar">🎸</div>
+                <h3>Live Remix</h3>
+                <p>Remixed for "Night Sessions"</p>
+                <p style="font-size: 0.85rem; color: var(--primary);">With DJ Z</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2>Get In Touch</h2>
+        <p style="margin-bottom: 2rem;">For bookings, collaborations, or inquiries, let's connect!</p>
+        <div class="contact-links">
+            <a href="mailto:alex@musicbyalex.com" class="contact-link">✉️ Email</a>
+            <a href="https://soundcloud.com" class="contact-link" target="_blank">🎵 SoundCloud</a>
+            <a href="https://spotify.com" class="contact-link" target="_blank">🎶 Spotify</a>
+            <a href="https://youtube.com" class="contact-link" target="_blank">📹 YouTube</a>
+        </div>
+        <a href="../" class="back-home">← Back to Home</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ASHOK S All rights reserved. Built with passion and innovation.</p>
+        <p>Part of the Profolia creative platform</p>
+    </footer>
+</body>
+</html>

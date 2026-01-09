@@ -1,0 +1,39 @@
+{
+  "name": "profilia-backend",
+  "version": "1.0.0",
+  "description": "AWS Lambda function to convert resumes into stunning HTML portfolios",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "zip -r function.zip . -x \"node_modules/*\" && aws lambda update-function-code --function-name profilia-backend --zip-file fileb://function.zip",
+    "package": "zip -r function.zip ."
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "resume",
+    "portfolio",
+    "langchain",
+    "ai"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "@aws-sdk/client-dynamodb": "^3.490.0",
+    "@aws-sdk/client-s3": "^3.490.0",
+    "@aws-sdk/lib-dynamodb": "^3.490.0",
+    "@langchain/anthropic": "^0.1.0",
+    "@langchain/core": "^0.1.10",
+    "langchain": "^0.1.5",
+    "mammoth": "^1.6.0",
+    "pdf-parse": "^1.1.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1529.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}

@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profolia - AI-Powered Creative Portfolio Generator | Professional Portfolio Website Builder</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Create stunning professional portfolios for photographers, musicians, developers, and creative professionals. AI-powered portfolio generator with beautiful templates, responsive design, and advanced features.">
+    <meta name="keywords" content="portfolio generator, creative portfolio, professional portfolio, photographer portfolio, musician portfolio, developer portfolio, AI portfolio builder, web design, portfolio website, creative showcase">
+    <meta name="author" content="ASHOK S">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://profolia.art/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://profolia.art/">
+    <meta property="og:title" content="Profolia - AI-Powered Creative Portfolio Generator">
+    <meta property="og:description" content="Create stunning professional portfolios with AI technology. Beautiful templates for photographers, musicians, developers, and creative professionals.">
+    <meta property="og:image" content="https://profolia.art/og-image.jpg">
+    <meta property="og:site_name" content="Profolia">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://profolia.art/">
+    <meta name="twitter:title" content="Profolia - AI-Powered Creative Portfolio Generator">
+    <meta name="twitter:description" content="Create stunning professional portfolios with AI technology. Beautiful templates for photographers, musicians, developers, and creative professionals.">
+    <meta name="twitter:image" content="https://profolia.art/og-image.jpg">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #7c3aed;
+            --dark: #0a0e27;
+            --darker: #050811;
+            --light: #e2e8f0;
+            --accent: #f59e0b;
+            --text: #94a3b8;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+            animation: float 25s ease-in-out infinite reverse;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* Search Bar Section */
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(10, 14, 39, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--light);
+            font-size: 1rem;
+            outline: none;
+            padding: 0.5rem 1rem;
+            min-width: 0;
+        }
+
+        .search-wrapper input::placeholder {
+            color: rgba(148, 163, 184, 0.5);
+        }
+
+        .search-wrapper button {
+            padding: 0.7rem 1.8rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--darker);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .search-wrapper button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .search-wrapper button:active {
+            transform: scale(0.98);
+        }
+
+        /* Categories Section */
+        .categories {
+            position: relative;
+            z-index: 2;
+            margin-top: 3rem;
+        }
+
+        .categories h3 {
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .category-btn {
+            padding: 0.8rem 1.2rem;
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--text);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover {
+            background: rgba(124, 58, 237, 0.2);
+            border-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        /* Featured Portfolios */
+        .featured {
+            padding: 5rem 5%;
+            background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.05));
+        }
+
+        .featured h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .portfolio-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .portfolio-card:hover::before {
+            left: 100%;
+        }
+
+        .portfolio-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+        }
+
+        .portfolio-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-card h3 {
+            font-size: 1.3rem;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-card p {
+            color: var(--text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-card .followers {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* AI Capabilities Section */
+        .ai-section {
+            padding: 5rem 5%;
+        }
+
+        .ai-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            color: var(--darker);
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .ai-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .ai-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .ai-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .ai-feature {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-feature:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+        }
+
+        .ai-feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .ai-feature h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .ai-feature p {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 0;
+        }
+
+        /* Resume Upload Section */
+        .upload-section {
+            padding: 5rem 5%;
+            background: var(--darker);
+        }
+
+        .upload-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--light);
+            font-weight: 700;
+        }
+
+        .upload-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 3rem;
+        }
+
+        .upload-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: transparent;
+            border: 3px dashed rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 4rem 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-container:hover {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.02);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-title {
+            font-size: 1.8rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .upload-description {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-file-types {
+            font-size: 0.9rem;
+            color: rgba(148, 163, 184, 0.7);
+            margin-bottom: 2rem;
+        }
+
+        .upload-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .upload-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 212, 255, 0.4);
+        }
+
+        .upload-button:active {
+            transform: translateY(-1px);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .upload-disabled-message {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(251, 146, 60, 0.2) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .upload-disabled-message .message-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-disabled-message .message-text {
+            font-size: 1.3rem;
+            color: var(--light);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-disabled-message .message-subtext {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        /* Progress Bar Styles */
+        .progress-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 15px;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--light);
+            z-index: 1;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .progress-stage {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .progress-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 212, 255, 0.3);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 5%;
+            background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.05));
+        }
+
+        .services h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 5%;
+            background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.05));
+        }
+
+        .services h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 5%;
+            background: linear-gradient(180deg, rgba(124, 58, 237, 0.05), transparent);
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .contact-section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.1);
+        }
+
+        .contact-item-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        .contact-item p {
+            color: var(--text);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: var(--light);
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.7rem 1rem;
+            background: rgba(10, 14, 39, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            color: var(--light);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(148, 163, 184, 0.5);
+        }
+
+        .submit-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--darker);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 8, 17, 0.9);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 3rem 5%;
+            text-align: center;
+            color: var(--text);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            nav a {
+                margin-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">🎨 profolia</a>
+        <div>
+            <a href="#featured">Featured</a>
+            <a href="#ai">AI Capabilities</a>
+            <a href="#services">Services</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="ai-badge">✨ Powered by AI Technology Technology</div>
+            <h1>Showcase Your Creativity</h1>
+            <p>Build and share your stunning portfolio with the world. Perfect for photographers, musicians, dancers, technologists, and creative professionals.</p>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <form class="search-wrapper" id="searchForm" onsubmit="handleSearch(event)">
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        placeholder="Search portfolio (e.g., photosbyvetri, musicbyalex)" 
+                        autocomplete="off"
+                    >
+                    <button type="submit">Search</button>
+                </form>
+                <!-- Search Message -->
+                <div id="searchMessage" style="display: none; margin-top: 1rem; padding: 0.8rem; border-radius: 8px; text-align: center; font-size: 0.95rem;"></div>
+            </div>
+
+            <!-- Categories -->
+            <div class="categories">
+                <h3>Popular Creators</h3>
+                <div class="category-grid">
+                    <button class="category-btn" onclick="goToPortfolio('photographer')">📷 Photographer</button>
+                    <button class="category-btn" onclick="goToPortfolio('musician')">🎵 Musician</button>
+                    <button class="category-btn" onclick="goToPortfolio('dancer')">💃 Dancer</button>
+                    <button class="category-btn" onclick="goToPortfolio('technologist')">💻 Technologist</button>
+                    <button class="category-btn" onclick="goToPortfolio('artist')">🎭 Artist</button>
+                    <button class="category-btn" onclick="goToPortfolio('designer')">✨ Designer</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Upload Section -->
+    <section class="upload-section" id="upload">
+        <h2>Create Your AI-Enhanced Portfolio</h2>
+        <p class="upload-subtitle">Upload your resume and let our AI transform it into a stunning portfolio</p>
+        
+        <div class="upload-container">
+            <div class="upload-icon">📄</div>
+            <div class="upload-title">Upload Your Resume</div>
+            <p class="upload-description">Create your custom portfolio URL</p>
+            
+            <!-- Username Input -->
+            <div class="form-group" style="margin: 1.5rem auto; max-width: 400px;">
+                <label for="usernameInput" style="color: var(--light); margin-bottom: 0.5rem; display: block; text-align: left;">
+                    Choose Your Username
+                </label>
+                <input 
+                    type="text" 
+                    id="usernameInput" 
+                    placeholder="e.g., ashok9315" 
+                    maxlength="30"
+                    style="width: 100%; padding: 0.8rem; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 8px; color: var(--light); font-size: 1rem;"
+                />
+                <p class="upload-file-types" style="margin-top: 0.3rem; text-align: left; font-size: 0.85rem;">
+                    Your URL will be: <span id="urlPreview" style="color: var(--primary);">profolia.solutionsynth.cloud/portfolio/yourname</span>
+                </p>
+            </div>
+            
+            <p class="upload-description" style="margin-top: 1.5rem;">Drag and drop your resume here, or click to browse</p>
+            <p class="upload-file-types">Supports PDF and DOCX files up to 2MB</p>
+            <button class="upload-button" id="uploadButton" type="button" onclick="document.getElementById('fileInput').click()" disabled style="opacity: 0.5; cursor: not-allowed;">Choose File</button>
+            <input type="file" id="fileInput" accept=".pdf,.docx" disabled />
+        </div>
+    </section>
+
+    <!-- Featured Portfolios -->
+    <section class="featured" id="featured">
+        <h2>Featured Creators</h2>
+        <div class="portfolio-grid">
+            <a href="photosbyvetri/" class="portfolio-card" style="text-decoration: none;">
+                <div class="portfolio-icon">📷</div>
+                <h3>photosbyvetri</h3>
+                <p>Professional Photography Portfolio</p>
+                <span class="followers">2.4K followers</span>
+            </a>
+
+            <a href="musicbyalex/" class="portfolio-card" style="text-decoration: none;">
+                <div class="portfolio-icon">🎵</div>
+                <h3>musicbyalex</h3>
+                <p>Electronic & Hip-Hop Producer</p>
+                <span class="followers">1.8K followers</span>
+            </a>
+
+            <a href="dancewithjoy/" class="portfolio-card" style="text-decoration: none;">
+                <div class="portfolio-icon">💃</div>
+                <h3>dancewithjoy</h3>
+                <p>Contemporary Dance Artist</p>
+                <span class="followers">3.2K followers</span>
+            </a>
+
+            <a href="codebysmith/" class="portfolio-card" style="text-decoration: none;">
+                <div class="portfolio-icon">💻</div>
+                <h3>codebysmith</h3>
+                <p>Full Stack Developer & Designer</p>
+                <span class="followers">4.1K followers</span>
+            </a>
+
+            <a href="artbycreate/" class="portfolio-card" style="text-decoration: none;">
+                <div class="portfolio-icon">🎨</div>
+                <h3>artbycreate</h3>
+                <p>Digital Art & Illustration</p>
+                <span class="followers">2.9K followers</span>
+            </a>
+
+            <a href="designstudio/" class="portfolio-card" style="text-decoration: none;">
+                <div class="portfolio-icon">✨</div>
+                <h3>designstudio</h3>
+                <p>Branding & UI/UX Design</p>
+                <span class="followers">5.3K followers</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- AI Capabilities Section -->
+    <section class="ai-section" id="ai">
+        <h2>AI-Powered Portfolio Generation</h2>
+        <div class="ai-content">
+            <p>Create stunning professional portfolios effortlessly with our cutting-edge AI capabilities. We leverage <strong>Generative AI</strong>, <strong>Retrieval-Augmented Generation (RAG)</strong>, and <strong>Model Context Protocol (MCP)</strong> to deliver personalized, intelligent portfolio solutions tailored to your creative needs.</p>
+        </div>
+
+        <div class="ai-features">
+            <div class="ai-feature">
+                <div class="ai-feature-icon">🤖</div>
+                <h3>Generative AI</h3>
+                <p>Intelligent content generation and design suggestions powered by advanced language models</p>
+            </div>
+
+            <div class="ai-feature">
+                <div class="ai-feature-icon">🔍</div>
+                <h3>RAG Technology</h3>
+                <p>Context-aware portfolio optimization using retrieval-augmented generation for better personalization</p>
+            </div>
+
+            <div class="ai-feature">
+                <div class="ai-feature-icon">🔗</div>
+                <h3>MCP Integration</h3>
+                <p>Seamless Model Context Protocol implementation for enhanced system interoperability</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2>Our Comprehensive IT Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Website Creation</h3>
+                <p>Beautiful, responsive websites designed and developed with modern technologies for optimal user experience.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>AI Solutions</h3>
+                <p>Custom AI-powered solutions including chatbots, recommendation engines, and intelligent automation.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Generative AI</span>
+                    <span class="tech-tag">RAG</span>
+                    <span class="tech-tag">MCP</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💼</div>
+                <h3>IT Consulting</h3>
+                <p>Expert IT solutions and consulting services to transform your business with technology.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Strategy</span>
+                    <span class="tech-tag">Architecture</span>
+                    <span class="tech-tag">Optimization</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🛒</div>
+                <h3>E-Commerce Solutions</h3>
+                <p>Full-featured shopping cart applications with inventory management and secure transactions.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">MongoDB</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💳</div>
+                <h3>Payment Integration</h3>
+                <p>Seamless payment gateway integration supporting multiple payment methods and currencies.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Stripe</span>
+                    <span class="tech-tag">PayPal</span>
+                    <span class="tech-tag">Razorpay</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <h3>Custom Development</h3>
+                <p>Tailored software development services for web, mobile, and enterprise applications.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Full Stack</span>
+                    <span class="tech-tag">Cloud</span>
+                    <span class="tech-tag">DevOps</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ASHOK S All rights reserved. Built with passion and innovation.</p>
+        <p>Profolia - Your Creative Portfolio Platform</p>
+    </footer>
+
+    <script>
+        // Helper function to show search messages
+        function showSearchMessage(message, type = 'error') {
+            const messageDiv = document.getElementById('searchMessage');
+            messageDiv.textContent = message;
+            messageDiv.style.display = 'block';
+            
+            if (type === 'error') {
+                messageDiv.style.background = 'rgba(239, 68, 68, 0.1)';
+                messageDiv.style.border = '1px solid #ef4444';
+                messageDiv.style.color = '#ef4444';
+            } else if (type === 'success') {
+                messageDiv.style.background = 'rgba(16, 185, 129, 0.1)';
+                messageDiv.style.border = '1px solid #10b981';
+                messageDiv.style.color = '#10b981';
+            }
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        async function handleSearch(event) {
+            event.preventDefault();
+            const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+            const searchButton = event.target.querySelector('button[type="submit"]');
+            const messageDiv = document.getElementById('searchMessage');
+            
+            // Hide previous messages
+            messageDiv.style.display = 'none';
+            
+            if (searchInput) {
+                // Clean username (remove special characters except hyphens and underscores)
+                const cleanUsername = searchInput.replace(/[^a-z0-9-_]/g, '');
+                
+                if (!cleanUsername) {
+                    showSearchMessage('Please enter a valid username', 'error');
+                    return;
+                }
+                
+                // Show loading state
+                searchButton.textContent = 'Searching...';
+                searchButton.disabled = true;
+                
+                try {
+                    // Check if portfolio exists
+                    const checkUrl = `${window.location.protocol}//${window.location.hostname}/portfolio/${cleanUsername}/index.html`;
+                    const response = await fetch(checkUrl, { method: 'GET' });
+                    
+                    if (response.ok) {
+                        const text = await response.text();
+                        const isMainSite = text.includes('profolia</a>') || text.includes('Upload Your Resume');
+                        
+                        if (isMainSite) {
+                            // Portfolio doesn't exist
+                            showSearchMessage(`Portfolio "${cleanUsername}" does not exist. Please check the username and try again.`, 'error');
+                            searchButton.textContent = 'Search';
+                            searchButton.disabled = false;
+                        } else {
+                            // Portfolio exists - navigate
+                            showSearchMessage(`Found! Redirecting to ${cleanUsername}...`, 'success');
+                            setTimeout(() => {
+                                window.location.href = `/portfolio/${cleanUsername}`;
+                            }, 500);
+                        }
+                    } else {
+                        // Error fetching
+                        showSearchMessage(`Portfolio "${cleanUsername}" does not exist.`, 'error');
+                        searchButton.textContent = 'Search';
+                        searchButton.disabled = false;
+                    }
+                } catch (error) {
+                    console.error('Search error:', error);
+                    showSearchMessage('Error searching for portfolio. Please try again.', 'error');
+                    searchButton.textContent = 'Search';
+                    searchButton.disabled = false;
+                }
+            }
+        }
+
+        function goToPortfolio(category) {
+            const examplePortfolios = {
+                'photographer': 'photosbyvetri',
+                'musician': 'musicbyalex',
+                'dancer': 'dancewithjoy',
+                'technologist': 'codebysmith',
+                'artist': 'artbycreate',
+                'designer': 'designstudio'
+            };
+            
+            const username = examplePortfolios[category] || category;
+            window.location.href = `/portfolio/${username}`;
+        }
+
+        // Add focus effect to search input
+        document.getElementById('searchInput').addEventListener('focus', function() {
+            this.parentElement.style.borderColor = 'var(--primary)';
+        });
+
+        document.getElementById('searchInput').addEventListener('blur', function() {
+            this.parentElement.style.borderColor = 'rgba(0, 212, 255, 0.3)';
+        });
+
+        // Helper functions to enable/disable upload
+        function enableUpload() {
+            const uploadButton = document.getElementById('uploadButton');
+            const fileInput = document.getElementById('fileInput');
+            uploadButton.disabled = false;
+            fileInput.disabled = false;
+            uploadButton.style.opacity = '1';
+            uploadButton.style.cursor = 'pointer';
+        }
+
+        function disableUpload() {
+            const uploadButton = document.getElementById('uploadButton');
+            const fileInput = document.getElementById('fileInput');
+            uploadButton.disabled = true;
+            fileInput.disabled = true;
+            uploadButton.style.opacity = '0.5';
+            uploadButton.style.cursor = 'not-allowed';
+        }
+
+        // Check if username already exists
+        let usernameCheckTimeout;
+        async function checkUsernameAvailability(username) {
+            if (!username || username.length < 3) {
+                disableUpload();
+                return;
+            }
+            
+            const preview = document.getElementById('urlPreview');
+            const usernameInput = document.getElementById('usernameInput');
+            
+            try {
+                // Check if portfolio exists by fetching and checking content
+                const checkUrl = `${window.location.protocol}//${window.location.hostname}/portfolio/${username}/index.html`;
+                const response = await fetch(checkUrl, { method: 'GET' });
+                
+                if (response.ok) {
+                    // Get a small portion of the response to check if it's a real portfolio
+                    const text = await response.text();
+                    
+                    // If it's the main site's index.html (CloudFront error redirect), username is available
+                    // Real portfolios won't have "profilia" logo or upload section
+                    const isMainSite = text.includes('profolia</a>') || text.includes('Upload Your Resume');
+                    
+                    if (isMainSite) {
+                        // Username available (CloudFront returned main index.html as error page)
+                        preview.style.color = 'var(--primary)';
+                        preview.textContent = `✅ profolia.solutionsynth.cloud/portfolio/${username}`;
+                        usernameInput.style.borderColor = '#10b981';
+                        usernameInput.dataset.available = 'true';
+                        enableUpload();
+                    } else {
+                        // Username exists (real portfolio)
+                        preview.style.color = '#ef4444';
+                        preview.textContent = '❌ Username already taken - choose another';
+                        usernameInput.style.borderColor = '#ef4444';
+                        usernameInput.dataset.available = 'false';
+                        disableUpload();
+                    }
+                } else {
+                    // Assume available if fetch fails
+                    preview.style.color = 'var(--primary)';
+                    preview.textContent = `✅ profilia.solutionsynth.cloud/portfolio/${username}`;
+                    usernameInput.style.borderColor = '#10b981';
+                    usernameInput.dataset.available = 'true';
+                }
+            } catch (error) {
+                // Assume available if check fails
+                preview.style.color = 'var(--primary)';
+                preview.textContent = `profilia.solutionsynth.cloud/portfolio/${username}`;
+                usernameInput.style.borderColor = 'rgba(0, 212, 255, 0.3)';
+                usernameInput.dataset.available = 'true';
+            }
+        }
+
+        // Update URL preview as user types
+        document.getElementById('usernameInput').addEventListener('input', function() {
+            const username = this.value.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
+            const preview = document.getElementById('urlPreview');
+            
+            // Reset to default style while typing
+            this.style.borderColor = 'rgba(0, 212, 255, 0.3)';
+            preview.style.color = 'var(--primary)';
+            disableUpload();
+            
+            if (username) {
+                preview.textContent = `profolia.solutionsynth.cloud/portfolio/${username}`;
+                
+                // Debounce the availability check
+                clearTimeout(usernameCheckTimeout);
+                usernameCheckTimeout = setTimeout(() => {
+                    checkUsernameAvailability(username);
+                }, 800);
+            } else {
+                preview.textContent = 'profolia.solutionsynth.cloud/portfolio/yourname';
+                this.dataset.available = 'true';
+            }
+        });
+
+        // Also check on blur
+        document.getElementById('usernameInput').addEventListener('blur', function() {
+            const username = this.value.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
+            if (username) {
+                checkUsernameAvailability(username);
+            }
+        });
+
+        // Handle contact form submission
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const service = formData.get('service');
+            const message = formData.get('message');
+
+            // Create mailto link
+            const subject = `Profolia Service Inquiry - ${service}`;
+            const body = `Name: ${name}%0AEmail: ${email}%0AService: ${service}%0A%0AMessage:%0A${message}`;
+            
+            window.location.href = `mailto:ashok9315@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Handle file upload
+        document.getElementById('fileInput').addEventListener('change', async function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const uploadContainer = document.querySelector('.upload-container');
+            
+            // Get and validate username
+            const usernameInput = document.getElementById('usernameInput');
+            const username = usernameInput.value.trim().toLowerCase();
+            
+            if (!username) {
+                alert('Please enter a username for your portfolio URL');
+                this.value = '';
+                return;
+            }
+            
+            // Validate username format (3-30 chars, alphanumeric + hyphens/underscores)
+            if (!/^[a-z0-9-_]{3,30}$/.test(username)) {
+                alert('Username must be 3-30 characters long and contain only letters, numbers, hyphens, and underscores');
+                this.value = '';
+                return;
+            }
+            
+            // Check if username is already taken
+            if (usernameInput.dataset.available === 'false') {
+                alert('This username is already taken. Please choose a different username.');
+                this.value = '';
+                usernameInput.focus();
+                return;
+            }
+            
+            // Validate file type
+            const validTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'];
+            if (!validTypes.includes(file.type) && !file.name.match(/\.(pdf|docx|doc)$/i)) {
+                alert('Please upload a PDF or Word document (DOC/DOCX)');
+                this.value = '';
+                return;
+            }
+
+            // Validate file size (2MB)
+            const maxSize = 2 * 1024 * 1024; // 2MB
+            if (file.size > maxSize) {
+                alert('File size must be less than 2MB');
+                this.value = '';
+                return;
+            }
+
+            // Show initial uploading state
+            uploadContainer.innerHTML = `
+                <div class="upload-disabled-message">
+                    <div class="message-icon">⏳</div>
+                    <div class="message-text">Uploading your resume...</div>
+                    <div class="message-subtext">Creating portfolio at /portfolio/${username}</div>
+                </div>
+            `;
+            uploadContainer.style.cursor = 'wait';
+
+            try {
+                // Convert file to base64
+                const base64File = await fileToBase64(file);
+
+                // Get API URL from config or use fallback
+                let apiUrl;
+                try {
+                    const configResponse = await fetch('/config.json');
+                    if (configResponse.ok) {
+                        const config = await configResponse.json();
+                        apiUrl = config.apiUrl;
+                    }
+                } catch (e) {
+                    console.log('Config.json not found, using fallback');
+                }
+                
+                // Check if API URL is available
+                if (!apiUrl) {
+                    throw new Error('API URL not configured. Please ensure config.json is properly deployed.');
+                }
+                
+                console.log('Using API URL:', apiUrl);
+                
+                // Send to Lambda function with username
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        file: base64File,
+                        fileName: file.name,
+                        fileType: file.type,
+                        username: username
+                    })
+                });
+
+                // Check if response is JSON
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const textResponse = await response.text();
+                    console.error('Non-JSON response:', textResponse.substring(0, 200));
+                    throw new Error('Invalid response from server. Please check API configuration.');
+                }
+
+                const result = await response.json();
+
+                if (response.ok && result.jobId) {
+                    // Start polling for progress
+                    await pollJobStatus(result.jobId, apiUrl, uploadContainer, username);
+                } else {
+                    throw new Error(result.error || 'Failed to start job');
+                }
+
+            } catch (error) {
+                console.error('Upload error:', error);
+                uploadContainer.innerHTML = `
+                    <div class="upload-disabled-message" style="background: rgba(239, 68, 68, 0.1); border-color: #ef4444;">
+                        <div class="message-icon">❌</div>
+                        <div class="message-text">Upload Failed</div>
+                        <div class="message-subtext">${error.message || 'Please try again later'}</div>
+                    </div>
+                `;
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    location.reload();
+                }, 3000);
+            }
+
+            // Reset file input
+            this.value = '';
+        });
+
+        // Poll job status with progress updates
+        async function pollJobStatus(jobId, apiUrl, container, username) {
+            const maxAttempts = 180; // 15 minutes (5 second intervals)
+            let attempts = 0;
+
+            const poll = async () => {
+                try {
+                    attempts++;
+                    
+                    // Fetch job status
+                    const response = await fetch(`${apiUrl}?jobId=${jobId}`);
+                    const job = await response.json();
+
+                    if (!response.ok || !job) {
+                        throw new Error('Failed to fetch job status');
+                    }
+
+                    // Update progress UI
+                    container.innerHTML = `
+                        <div class="progress-container">
+                            <div class="message-icon" style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
+                            <div class="message-text" style="font-size: 1.5rem; margin-bottom: 1.5rem;">
+                                Creating Your Portfolio
+                            </div>
+                            <div class="progress-bar-wrapper">
+                                <div class="progress-bar" style="width: ${job.progress || 0}%">
+                                    <span class="progress-text">${job.progress || 0}%</span>
+                                </div>
+                            </div>
+                            <div class="progress-stage">
+                                <span class="progress-spinner"></span>
+                                ${job.stage || 'Processing...'}
+                            </div>
+                        </div>
+                    `;
+
+                    // Check if job is complete
+                    if (job.status === 'completed' && job.data?.portfolioUrl) {
+                        // Extract CloudFront domain and construct clean URL
+                        const cloudfrontDomain = window.location.hostname;
+                        const cleanUrl = username 
+                            ? `${window.location.protocol}//${cloudfrontDomain}/portfolio/${username}`
+                            : job.data.portfolioUrl;
+                        
+                        container.innerHTML = `
+                            <div class="upload-disabled-message" style="background: rgba(16, 185, 129, 0.1); border-color: #10b981;">
+                                <div class="message-icon" style="font-size: 3rem;">✅</div>
+                                <div class="message-text" style="font-size: 1.5rem; margin-bottom: 1rem;">Portfolio Created Successfully!</div>
+                                <div style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+                                    <div style="font-size: 0.9rem; color: var(--text); margin-bottom: 0.5rem;">Your Permanent URL:</div>
+                                    <a href="${cleanUrl}" target="_blank" style="color: var(--primary); font-size: 1.1rem; word-break: break-all; text-decoration: none; font-weight: 600;">${cleanUrl}</a>
+                                </div>
+                                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+                                    <button onclick="window.open('${cleanUrl}', '_blank')" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--darker); padding: 0.8rem 1.5rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                                        🔗 Open Portfolio
+                                    </button>
+                                    <button onclick="location.reload()" style="background: rgba(0, 212, 255, 0.1); color: var(--primary); padding: 0.8rem 1.5rem; border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(0, 212, 255, 0.2)'" onmouseout="this.style.background='rgba(0, 212, 255, 0.1)'">
+                                        ➕ Create Another
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    // Check if job failed
+                    if (job.status === 'failed') {
+                        throw new Error(job.data?.error || 'Portfolio generation failed');
+                    }
+
+                    // Continue polling if not complete and haven't exceeded max attempts
+                    if (attempts < maxAttempts) {
+                        setTimeout(poll, 5000); // Poll every 5 seconds
+                    } else {
+                        throw new Error('Job timeout - please try again');
+                    }
+
+                } catch (error) {
+                    console.error('Polling error:', error);
+                    container.innerHTML = `
+                        <div class="upload-disabled-message" style="background: rgba(239, 68, 68, 0.1); border-color: #ef4444;">
+                            <div class="message-icon" style="font-size: 3rem;">❌</div>
+                            <div class="message-text" style="font-size: 1.5rem; margin-bottom: 1rem;">Generation Failed</div>
+                            <div class="message-subtext" style="margin-bottom: 1.5rem;">${error.message || 'Please try again later'}</div>
+                            <button onclick="location.reload()" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 0.8rem 1.5rem; border: 1px solid #ef4444; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(239, 68, 68, 0.3)'" onmouseout="this.style.background='rgba(239, 68, 68, 0.2)'">
+                                🔄 Try Again
+                            </button>
+                        </div>
+                    `;
+                }
+            };
+
+            // Start polling
+            poll();
+        }
+
+        // Helper function to convert file to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    // Remove the data URL prefix (e.g., "data:application/pdf;base64,")
+                    const base64 = reader.result.split(',')[1];
+                    resolve(base64);
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+    </script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Profolia",
+        "url": "https://profolia.art",
+        "logo": "https://profolia.art/logo.png",
+        "description": "AI-powered creative portfolio generator for photographers, musicians, developers, and creative professionals",
+        "founder": {
+            "@type": "Person",
+            "name": "ASHOK S"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-8939876461",
+            "email": "ashok9315@gmail.com",
+            "contactType": "Customer Service"
+        },
+        "sameAs": [
+            "https://linkedin.com/in/ashok9315",
+            "https://github.com/ashok9315-cmyk"
+        ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Profolia",
+        "url": "https://profolia.art",
+        "description": "Create stunning professional portfolios with AI technology",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://profolia.art/{search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Portfolio Generation",
+        "provider": {
+            "@type": "Organization",
+            "name": "Profolia"
+        },
+        "areaServed": "Worldwide",
+        "description": "AI-powered portfolio generation service with Generative AI, RAG, and MCP technologies"
+    }
+    </script>
+</body>
+</html>

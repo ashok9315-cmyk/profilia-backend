@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Profolia | Get in Touch for Portfolio Services</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Contact Profolia for professional portfolio creation, AI solutions, web development, and IT services. Get expert help with your creative portfolio needs.">
+    <meta name="keywords" content="contact profolia, portfolio services, web development contact, AI solutions, IT consulting, portfolio support">
+    <meta name="author" content="ASHOK S">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://profolia.art/contact.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://profolia.art/contact.html">
+    <meta property="og:title" content="Contact Us - Profolia">
+    <meta property="og:description" content="Get in touch with Profolia for professional portfolio services, AI solutions, and web development.">
+    <meta property="og:image" content="https://profolia.art/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://profolia.art/contact.html">
+    <meta name="twitter:title" content="Contact Us - Profolia">
+    <meta name="twitter:description" content="Get in touch with Profolia for professional portfolio services, AI solutions, and web development.">
+    <meta name="twitter:image" content="https://profolia.art/og-image.jpg">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #7c3aed;
+            --dark: #0a0e27;
+            --darker: #050811;
+            --light: #e2e8f0;
+            --accent: #f59e0b;
+            --text: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
+        }
+
+        /* Navigation */
+        nav {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--light);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Content */
+        .contact-content {
+            padding: 4rem 5%;
+        }
+
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        /* Contact Info */
+        .contact-info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-info-title {
+            font-size: 2rem;
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .contact-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        .contact-item p {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        /* Services Quick List */
+        .services-offered {
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .services-offered h3 {
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .services-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .service-item-icon {
+            font-size: 1.5rem;
+        }
+
+        .service-item p {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        /* Contact Form */
+        .contact-form-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            color: var(--light);
+            margin-bottom: 2rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.8rem 1rem;
+            background: rgba(10, 14, 39, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            color: var(--light);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(148, 163, 184, 0.5);
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--darker);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 8, 17, 0.9);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 2rem 5%;
+            text-align: center;
+            color: var(--text);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .services-list {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav a {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">🎨 profolia</a>
+        <div>
+            <a href="index.html#featured">Featured</a>
+            <a href="index.html#ai">AI Capabilities</a>
+            <a href="index.html#services">Services</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Get In Touch</h1>
+        <p>Have a question about our services or want to discuss your project? Reach out to us today. We're here to help you bring your creative vision to life with cutting-edge technology and AI solutions.</p>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="contact-content">
+        <div class="contact-container">
+            <!-- Contact Information -->
+            <div class="contact-info-section">
+                <h2 class="contact-info-title">Contact Information</h2>
+
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <h3>Email</h3>
+                        <a href="mailto:ashok9315@gmail.com">ashok9315@gmail.com</a>
+                        <p>We'll respond within 24 hours</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div>
+                        <h3>Phone</h3>
+                        <a href="tel:+918939876461">+91-8939876461</a>
+                        <p>Available Mon - Fri, 9AM - 6PM IST</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">💼</div>
+                    <div>
+                        <h3>LinkedIn</h3>
+                        <a href="https://linkedin.com" target="_blank">Connect on LinkedIn</a>
+                        <p>Follow for updates and insights</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">💻</div>
+                    <div>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com" target="_blank">Visit GitHub Profile</a>
+                        <p>Check out our projects</p>
+                    </div>
+                </div>
+
+                <!-- Services Offered -->
+                <div class="services-offered">
+                    <h3>Services We Offer</h3>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <span class="service-item-icon">🎨</span>
+                            <p>Portfolio Creation</p>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-item-icon">🌐</span>
+                            <p>Website Creation</p>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-item-icon">🤖</span>
+                            <p>AI Solutions</p>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-item-icon">🛒</span>
+                            <p>E-Commerce Apps</p>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-item-icon">💳</span>
+                            <p>Payment Integration</p>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-item-icon">⚙️</span>
+                            <p>Custom Development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h2 class="form-title">Send us a Message</h2>
+                <form class="contact-form" onsubmit="handleContactSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+91-9999999999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Service Interested In *</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service</option>
+                            <option value="Portfolio Creation">Portfolio Creation</option>
+                            <option value="Website Creation">Website Creation</option>
+                            <option value="AI Solutions">AI Solutions</option>
+                            <option value="E-Commerce Application">E-Commerce Application</option>
+                            <option value="Payment Integration">Payment Integration</option>
+                            <option value="Custom Development">Custom Development</option>
+                            <option value="IT Consulting">IT Consulting</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required placeholder="Tell us about your project..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ASHOK S All rights reserved. Built with passion and innovation.</p>
+        <p>Profolia - Your Creative Portfolio Platform</p>
+    </footer>
+
+    <script>
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const service = formData.get('service');
+            const message = formData.get('message');
+
+            // Create mailto link
+            const subject = `Profolia Service Inquiry - ${service}`;
+            const body = `Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AService: ${service}%0A%0AMessage:%0A${message}`;
+            
+            window.location.href = `mailto:ashok9315@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+            
+            // Reset form
+            event.target.reset();
+        }
+    </script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Profolia",
+        "description": "Contact page for Profolia portfolio services",
+        "url": "https://profolia.art/contact.html",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "Profolia",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-8939876461",
+                "email": "ashok9315@gmail.com",
+                "contactType": "Customer Service",
+                "areaServed": "Worldwide",
+                "availableLanguage": "English"
+            }
+        }
+    }
+    </script>
+</body>
+</html>

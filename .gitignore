@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Generated config files
+public_html/config.json
+
+# CDK environment
+cdk/.env
+
+# AWS
+.aws-sam/
+*.zip
+cdk.out/
+cdk.context.json
+
+# Build outputs
+dist/
+build/
+*.js.map
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Testing
+coverage/
+.nyc_output/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+.cache/
+.temp/
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Lambda deployment packages
+*.zip
+lambda-*.zip
+
+# CDK specific
+cdk/node_modules/
+cdk/cdk.out/
+cdk/.cdk.staging/
+
+# Local test files
+test-event.json
+template.yaml
+samconfig.toml
+
+# Personal notes
+*.md
+!README.md
