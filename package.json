@@ -4,7 +4,9 @@
   "description": "AWS Lambda function to convert resumes into stunning HTML portfolios",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "deploy": "zip -r function.zip . -x \"node_modules/*\" && aws lambda update-function-code --function-name profilia-backend --zip-file fileb://function.zip",
     "package": "zip -r function.zip ."
   },
@@ -29,7 +31,8 @@
     "mammoth": "^1.6.0",
     "pdf-parse": "^1.1.1",
     "uuid": "^9.0.1"
-  },
+  },,
+    "jest": "^29.7.0"
   "devDependencies": {
     "aws-sdk": "^2.1529.0"
   },

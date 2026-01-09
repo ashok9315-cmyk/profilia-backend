@@ -247,6 +247,18 @@ function handler(event) {
       exportName: 'ProfiliaDistributionId',
     });
 
+    new cdk.CfnOutput(this, 'CloudFrontDomain', {
+      value: `https://${domainName}`,
+      description: 'CloudFront custom domain URL',
+      exportName: 'ProfiliaCloudFrontDomain',
+    });
+
+    new cdk.CfnOutput(this, 'WebsiteBucketName', {
+      value: websiteBucket.bucketName,
+      description: 'S3 Website Bucket Name',
+      exportName: 'ProfiliaWebsiteBucket',
+    });
+
     new cdk.CfnOutput(this, 'CustomDomainURL', {
       value: `https://${domainName}`,
       description: 'Custom domain URL',

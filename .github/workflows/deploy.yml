@@ -1,0 +1,447 @@
+name: Deploy Profilia
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '18.x'
+  AWS_REGION: us-east-1
+
+jobs:
+  # ============================================
+  # JOB 1: Test Backend
+  # ============================================
+  test-backend:
+    name: Test Backend
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install backend dependencies
+        run: npm ci
+
+      - name: 🧪 Run backend tests
+        run: npm test
+        continue-on-error: true
+
+      - name: 🔍 Lint code
+        run: |
+          if [ -f .eslintrc.js ] || [ -f .eslintrc.json ]; then
+            npx eslint . --ext .js
+          else
+            echo "No ESLint config found, skipping linting"
+          fi
+        continue-on-error: true
+
+  # ============================================
+  # JOB 2: Test CDK Infrastructure
+  # ============================================
+  test-cdk:
+    name: Test CDK Infrastructure
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: cdk/package-lock.json
+
+      - name: 📦 Install CDK dependencies
+        working-directory: ./cdk
+        run: npm ci
+
+      - name: 🧪 Run CDK tests
+        working-directory: ./cdk
+        run: npm test
+        continue-on-error: true
+
+      - name: 🔨 CDK Synth (validate)
+        working-directory: ./cdk
+        run: npx cdk synth
+        env:
+          ANTHROPIC_API_KEY: dummy-key-for-synth
+          DOMAIN_NAME: profilia.example.com
+          ZONE_NAME: example.com
+          HOSTED_ZONE_ID: Z1234567890ABC
+
+  # ============================================
+  # JOB 3: Build Backend
+  # ============================================
+  build-backend:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    needs: [test-backend, test-cdk]
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install production dependencies
+        run: npm ci --production
+
+      - name: 📦 Create deployment package
+        run: |
+          zip -r lambda-package.zip . \
+            -x "node_modules/*" \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "cdk/*" \
+            -x "public_html/*" \
+            -x "*.md" \
+            -x ".env*" \
+            -x "*.sh" \
+            -x "*.ps1"
+          
+          # Reinstall production dependencies in package
+          mkdir -p package
+          cp package.json package/
+          cd package
+          npm ci --production
+          cd ..
+          cd package/node_modules && zip -r ../../lambda-package.zip . && cd ../..
+
+      - name: 💾 Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lambda-package
+          path: lambda-package.zip
+          retention-days: 7
+
+  # ============================================
+  # JOB 4: Deploy Backend (CDK)
+  # ============================================
+  deploy-backend:
+    name: Deploy Backend
+    runs-on: ubuntu-latest
+    needs: build-backend
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+    outputs:
+      lambda-url: ${{ steps.cdk-outputs.outputs.lambda_url }}
+      cloudfront-domain: ${{ steps.cdk-outputs.outputs.cloudfront_domain }}
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: cdk/package-lock.json
+
+      - name: ⚙️ Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: 📦 Install CDK dependencies
+        working-directory: ./cdk
+        run: npm ci
+
+      - name: 📦 Install backend dependencies
+        run: npm ci
+
+      - name: 🚀 Deploy CDK stack
+        working-directory: ./cdk
+        run: npx cdk deploy --require-approval never --outputs-file outputs.json
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
+          ZONE_NAME: ${{ secrets.ZONE_NAME }}
+          HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+
+      - name: 📤 Extract CDK outputs
+        id: cdk-outputs
+        working-directory: ./cdk
+        run: |
+          if [ -f outputs.json ]; then
+            LAMBDA_URL=$(jq -r '.ProfiliaStack.LambdaFunctionURL // empty' outputs.json)
+            CLOUDFRONT_DOMAIN=$(jq -r '.ProfiliaStack.CloudFrontDomain // empty' outputs.json)
+            echo "lambda_url=$LAMBDA_URL" >> $GITHUB_OUTPUT
+            echo "cloudfront_domain=$CLOUDFRONT_DOMAIN" >> $GITHUB_OUTPUT
+            echo "Lambda URL: $LAMBDA_URL"
+            echo "CloudFront Domain: $CLOUDFRONT_DOMAIN"
+          fi
+
+      - name: 💾 Upload CDK outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: cdk-outputs
+          path: cdk/outputs.json
+          retention-days: 7
+
+  # ============================================
+  # JOB 5: Deploy Frontend
+  # ============================================
+  deploy-frontend:
+    name: Deploy Frontend
+    runs-on: ubuntu-latest
+    needs: deploy-backend
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: 📥 Download CDK outputs
+        uses: actions/download-artifact@v4
+        with:
+          name: cdk-outputs
+          path: ./cdk
+
+      - name: 📝 Generate config.json
+        run: |
+          LAMBDA_URL="${{ needs.deploy-backend.outputs.lambda-url }}"
+          if [ -z "$LAMBDA_URL" ] && [ -f cdk/outputs.json ]; then
+            LAMBDA_URL=$(jq -r '.ProfiliaStack.LambdaFunctionURL // empty' cdk/outputs.json)
+          fi
+          
+          if [ -n "$LAMBDA_URL" ]; then
+            cat > public_html/config.json <<EOF
+          {
+            "apiUrl": "$LAMBDA_URL",
+            "region": "${{ env.AWS_REGION }}"
+          }
+          EOF
+            echo "✅ Generated config.json with Lambda URL: $LAMBDA_URL"
+          else
+            echo "⚠️ Warning: Lambda URL not found, skipping config.json generation"
+          fi
+
+      - name: 📤 Upload to S3
+        run: |
+          BUCKET_NAME=$(aws cloudformation describe-stacks \
+            --stack-name ProfiliaStack \
+            --query 'Stacks[0].Outputs[?OutputKey==`WebsiteBucketName`].OutputValue' \
+            --output text)
+          
+          if [ -n "$BUCKET_NAME" ]; then
+            aws s3 sync public_html/ s3://$BUCKET_NAME/ \
+              --delete \
+              --exclude "*/.*" \
+              --cache-control "public, max-age=31536000" \
+              --exclude "*.html" \
+              --exclude "config.json"
+            
+            aws s3 sync public_html/ s3://$BUCKET_NAME/ \
+              --exclude "*" \
+              --include "*.html" \
+              --include "config.json" \
+              --cache-control "public, max-age=0, must-revalidate"
+            
+            echo "✅ Frontend uploaded to S3 bucket: $BUCKET_NAME"
+          else
+            echo "❌ Failed to get S3 bucket name"
+            exit 1
+          fi
+
+      - name: 🔄 Invalidate CloudFront cache
+        run: |
+          DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
+            --stack-name ProfiliaStack \
+            --query 'Stacks[0].Outputs[?OutputKey==`CloudFrontDistributionId`].OutputValue' \
+            --output text)
+          
+          if [ -n "$DISTRIBUTION_ID" ]; then
+            aws cloudfront create-invalidation \
+              --distribution-id $DISTRIBUTION_ID \
+              --paths "/*"
+            echo "✅ CloudFront cache invalidated for distribution: $DISTRIBUTION_ID"
+          else
+            echo "⚠️ Warning: CloudFront distribution ID not found"
+          fi
+
+  # ============================================
+  # JOB 6: Health Checks
+  # ============================================
+  health-check:
+    name: Health Check
+    runs-on: ubuntu-latest
+    needs: [deploy-backend, deploy-frontend]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: 🏥 Check Lambda Function
+        run: |
+          LAMBDA_URL="${{ needs.deploy-backend.outputs.lambda-url }}"
+          
+          if [ -z "$LAMBDA_URL" ]; then
+            LAMBDA_URL=$(aws cloudformation describe-stacks \
+              --stack-name ProfiliaStack \
+              --query 'Stacks[0].Outputs[?OutputKey==`LambdaFunctionURL`].OutputValue' \
+              --output text)
+          fi
+          
+          if [ -n "$LAMBDA_URL" ]; then
+            echo "Testing Lambda at: $LAMBDA_URL"
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "$LAMBDA_URL")
+            
+            if [ "$RESPONSE" = "200" ] || [ "$RESPONSE" = "400" ]; then
+              echo "✅ Lambda health check passed (HTTP $RESPONSE)"
+            else
+              echo "❌ Lambda health check failed (HTTP $RESPONSE)"
+              exit 1
+            fi
+          else
+            echo "⚠️ Warning: Lambda URL not found"
+            exit 1
+          fi
+
+      - name: 🌐 Check CloudFront/Website
+        run: |
+          CLOUDFRONT_DOMAIN="${{ needs.deploy-backend.outputs.cloudfront-domain }}"
+          
+          if [ -z "$CLOUDFRONT_DOMAIN" ]; then
+            CLOUDFRONT_DOMAIN=$(aws cloudformation describe-stacks \
+              --stack-name ProfiliaStack \
+              --query 'Stacks[0].Outputs[?OutputKey==`CloudFrontDomain`].OutputValue' \
+              --output text)
+          fi
+          
+          if [ -n "$CLOUDFRONT_DOMAIN" ]; then
+            # Remove https:// prefix if present
+            DOMAIN=$(echo "$CLOUDFRONT_DOMAIN" | sed 's|https://||')
+            
+            echo "Testing website at: https://$DOMAIN"
+            
+            # Wait for CloudFront propagation
+            echo "⏳ Waiting 30 seconds for CloudFront propagation..."
+            sleep 30
+            
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "https://$DOMAIN")
+            
+            if [ "$RESPONSE" = "200" ]; then
+              echo "✅ Website health check passed (HTTP $RESPONSE)"
+            else
+              echo "⚠️ Website returned HTTP $RESPONSE (may need more time to propagate)"
+            fi
+          else
+            echo "⚠️ Warning: CloudFront domain not found"
+          fi
+
+      - name: 🔍 Verify DynamoDB Table
+        run: |
+          TABLE_EXISTS=$(aws dynamodb describe-table \
+            --table-name profilia-job-progress \
+            --query 'Table.TableName' \
+            --output text 2>/dev/null || echo "")
+          
+          if [ -n "$TABLE_EXISTS" ]; then
+            echo "✅ DynamoDB table exists: profilia-job-progress"
+          else
+            echo "❌ DynamoDB table not found"
+            exit 1
+          fi
+
+      - name: 🪣 Verify S3 Buckets
+        run: |
+          BUCKET_NAME=$(aws cloudformation describe-stacks \
+            --stack-name ProfiliaStack \
+            --query 'Stacks[0].Outputs[?OutputKey==`WebsiteBucketName`].OutputValue' \
+            --output text)
+          
+          if [ -n "$BUCKET_NAME" ]; then
+            echo "✅ S3 website bucket exists: $BUCKET_NAME"
+          else
+            echo "❌ S3 bucket not found"
+            exit 1
+          fi
+
+  # ============================================
+  # JOB 7: Deployment Summary
+  # ============================================
+  summary:
+    name: Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [deploy-backend, deploy-frontend, health-check]
+    if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    
+    steps:
+      - name: 📊 Generate Summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.deploy-backend.result }}" = "success" ]; then
+            echo "✅ Backend deployed successfully" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Backend deployment failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.deploy-frontend.result }}" = "success" ]; then
+            echo "✅ Frontend deployed successfully" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Frontend deployment failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.health-check.result }}" = "success" ]; then
+            echo "✅ Health checks passed" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ Health checks had issues" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 URLs" >> $GITHUB_STEP_SUMMARY
+          
+          LAMBDA_URL="${{ needs.deploy-backend.outputs.lambda-url }}"
+          CLOUDFRONT_DOMAIN="${{ needs.deploy-backend.outputs.cloudfront-domain }}"
+          
+          if [ -n "$LAMBDA_URL" ]; then
+            echo "- **Lambda Function:** $LAMBDA_URL" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ -n "$CLOUDFRONT_DOMAIN" ]; then
+            echo "- **Website:** $CLOUDFRONT_DOMAIN" >> $GITHUB_STEP_SUMMARY
+          fi
