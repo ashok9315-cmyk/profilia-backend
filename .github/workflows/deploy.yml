@@ -32,7 +32,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: 📦 Install backend dependencies
-        run: npm ci
+        run: npm install
 
       - name: 🧪 Run backend tests
         run: npm test
@@ -65,7 +65,7 @@ jobs:
 
       - name: 📦 Install CDK dependencies
         working-directory: ./cdk
-        run: npm ci
+        run: npm install
 
       - name: 🧪 Run CDK tests
         working-directory: ./cdk
@@ -99,7 +99,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: 📦 Install production dependencies
-        run: npm ci --production
+        run: npm install --production
 
       - name: 📦 Create deployment package
         run: |
@@ -118,7 +118,7 @@ jobs:
           mkdir -p package
           cp package.json package/
           cd package
-          npm ci --production
+          npm install --production
           cd ..
           cd package/node_modules && zip -r ../../lambda-package.zip . && cd ../..
 
@@ -161,10 +161,10 @@ jobs:
 
       - name: 📦 Install CDK dependencies
         working-directory: ./cdk
-        run: npm ci
+        run: npm install
 
       - name: 📦 Install backend dependencies
-        run: npm ci
+        run: npm install
 
       - name: 🚀 Deploy CDK stack
         working-directory: ./cdk
