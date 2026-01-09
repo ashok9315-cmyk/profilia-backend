@@ -117,10 +117,14 @@ export class ProfiliaStack extends cdk.Stack {
     // ========================================
     // ACM Certificate for Custom Domain
     // ========================================
-    const certificate = new acm.Certificate(this, 'Certificate', {
-      domainName: domainName,
-      validation: acm.CertificateValidation.fromDns(hostedZone),
-    });
+    // Use existing certificate ARN if provided, otherwise create new
+    const certificateArn = process.env.CERTIFICATE_ARN;
+    const certificate = certificateArn
+      ? acm.Certificate.fromCertificateArn(this, 'Certificate', certificateArn)
+      : new acm.Certificate(this, 'Certificate', {
+          domainName: domainName,
+          validation: acm.CertificateValidation.fromDns(hostedZone),
+        });
 
     // ========================================
     // CloudFront Function for Directory Index
@@ -200,19 +204,24 @@ function handler(event) {
     // ========================================
     // Deploy Frontend to S3
     // ========================================
-    const deployment = new s3deploy.BucketDeployment(this, 'DeployWebsite', {
-      sources: [
-        s3deploy.Source.asset(path.join(__dirname, '../../public_html')),
-        // Inject Lambda Function URL into frontend
-        s3deploy.Source.jsonData('config.json', {
-          apiUrl: functionUrl.url,
-          region: this.region,
-        }),
-      ],
-      destinationBucket: websiteBucket,
-      distribution: distribution,
-      distributionPaths: ['/*'],
-    });
+    // Skip frontend deployment in CI/CD - handled separately for speed
+    const skipFrontendDeploy = process.env.SKIP_FRONTEND_DEPLOY === 'true';
+    
+    if (!skipFrontendDeploy) {
+      const deployment = new s3deploy.BucketDeployment(this, 'DeployWebsite', {
+        sources: [
+          s3deploy.Source.asset(path.join(__dirname, '../../public_html')),
+          // Inject Lambda Function URL into frontend
+          s3deploy.Source.jsonData('config.json', {
+            apiUrl: functionUrl.url,
+            region: this.region,
+          }),
+        ],
+        destinationBucket: websiteBucket,
+        distribution: distribution,
+        distributionPaths: ['/*'],
+      });
+    }
 
     // ========================================
     // Outputs
